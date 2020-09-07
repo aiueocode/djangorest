@@ -16,6 +16,9 @@ from rest_framework.views import APIView
 from rest_framework import mixins
 from rest_framework import generics
 
+#generics
+from rest_framework import generics
+
 # @csrf_exempt
 # def snippet_list(request):
 #     if request.method == 'GET':
@@ -56,16 +59,22 @@ from rest_framework import generics
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #Part 3 using mixins
-class SnippetList(mixins.ListModeMixin, mxins.CreateModelMixin, 
-    generics.GenericAPIView):
+# class SnippetList(mixins.ListModeMixin, mxins.CreateModelMixin, 
+#     generics.GenericAPIView):
+#     queryset = Snippet.objects.all()
+#     serializer_class = SnippetSerializer
+
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+
+#part 3 generics
+class SnippetList(generics.ListCreateAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
 
 # @csrf_exempt
 # def snippet_detail(request, pk):
@@ -136,18 +145,24 @@ class SnippetList(mixins.ListModeMixin, mxins.CreateModelMixin,
 #         return Response(status=status.HTTP_204_NO_CONTENT)
 
 #mixins
-class SnippetDetail(mixins.RetrieveModeMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    generics.GenericAPIView):
-    queryset = Snippet.ojects.all()
+# class SnippetDetail(mixins.RetrieveModeMixin,
+#     mixins.UpdateModelMixin,
+#     mixins.DestroyModelMixin,
+#     generics.GenericAPIView):
+#     queryset = Snippet.ojects.all()
+#     serializer_class = SnippetSerializer
+
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+
+#     def put(self, request, *args, **keargs):
+#         return self.update(request, *args, **kwargs)
+
+#     def delete(self, request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)
+
+#part 3 generics
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **keargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
